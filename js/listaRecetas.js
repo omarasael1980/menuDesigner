@@ -2,7 +2,7 @@
 var recetasSeleccionadasPorCategoria = JSON.parse(localStorage.getItem('recetasSeleccionadas'));
 
 // Lista de objetos  para limitar las elecciones con el formato [{"Beef":5},{"Chicken":5},{"Seafood":3}]
-var listaRecetas = [{"Beef":2},{"Chicken":2},{"Seafood":2}, {"Dessert":2}, {"Starter":2},{"Breakfast":2}];
+var listaRecetas = [{"Beef":5},{"Chicken":5},{"Seafood":2}, {"Dessert":5}, {"Starter":2},{"Breakfast":2}];
 
 // Función para generar HTML a partir del objeto de recetas
 function generarHTMLRecetasSeleccionadas(recetasPorCategoria, listaRecetas) {

@@ -110,7 +110,7 @@ if (isset($_GET['category'])) {
                 
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-success btn-save">Guardar</button> 
+                <button type="button" class="btn btn-success btn-save">Agregar a Menú Semanal</button> 
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
             </div>
         </div>

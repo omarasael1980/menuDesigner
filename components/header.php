@@ -27,7 +27,7 @@
                             <a class="nav-link" href="../storeview/checkIngredientes.php">Verificar Ingredientes</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="../ownerview/authorizeMenu.php">Verificar Ingredientes</a>
+                            <a class="nav-link" href="../ownerview/authorizeMenu.php">Autorizar Menú</a>
                         </li>
                     </ul>
                 </div>

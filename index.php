@@ -29,7 +29,7 @@
                             <a class="nav-link" href="views/storeview/checkIngredientes.php">Verificar Ingredientes</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="views/ownerview/authorizeMenu.php">Verificar Ingredientes</a>
+                        <a class="nav-link" href="views/ownerview/authorizeMenu.php">Autorizar Menú</a>
                         </li>
                     </ul>
                 </div>

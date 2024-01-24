@@ -1,11 +1,10 @@
-<?php
- 
-// Ahora puedes acceder a las variables de entorno
-$token = "1000.9b78f8e345dca2a23b99ed6f0725d263.a9e7e4ab7708adbab733d4505e32a4ce";
+<?php 
+function getDataZoho($reporte, $token){
+  // Ahora puedes acceder a las variables de entorno
+//$token = "1000.9b78f8e345dca2a23b99ed6f0725d263.a9e7e4ab7708adbab733d4505e32a4ce";
 $environment = "development";
-$url_base = "https://creator.zoho.com/api/v2/omarasael80/menucreator/report/All_Categories";
-
- 
+$url_base = "https://creator.zoho.com/api/v2/omarasael80/menucreator/report/".$reporte;
+echo $url_base;
  
 $ch = curl_init($url_base);
 
@@ -37,9 +36,8 @@ if ($data === null) {
 } else {
     // Procesar el array asociativo (puede imprimirlo, manipularlo, etc.)
  
-    $categorias = ($data["data"]);
-    foreach($categorias as $cat){
-        print_r($cat["strCategory"]);
-    }
+    $dataresult = ($data);
+    return $dataresult;
+}
 }
 ?>

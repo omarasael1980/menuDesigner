@@ -38,7 +38,7 @@ $(document).ready(function() {
     // Evento al hacer clic en el botón "Agregar" dentro del modal
     $('.modal').on('click', '.btn-save', function() {
         var modalID = $(this).closest('.modal').attr('id'); // Obtener el ID del modal actual
-
+       
         // Obtener datos del modal
         var categoria = $("#" + modalID + " .m-categorie").text().replace('Categoría:', '').trim();
         var mealId = $("#" + modalID + " .modal-title").data('meal-id'); // Use a data attribute to store the meal ID
@@ -61,8 +61,10 @@ $(document).ready(function() {
         // Verificar si se alcanzó el límite permitido por categoría
         if (recetasSeleccionadasPorCategoria[categoria] && recetasSeleccionadasPorCategoria[categoria].length >= limitePorCategoria) {
             alert("Ya elegiste todos los alimentos de esta categoría");
-            // No recargar la página, solo cerrar el modal
-            $(this).closest('.modal').modal('hide');
+            
+                // recargar pagina
+                window.location.reload();
+             
         } else {
             // Verificar si ya existe un elemento con el mismo ID en la categoría
             var existingRecipe = recetasSeleccionadasPorCategoria[categoria] ? recetasSeleccionadasPorCategoria[categoria].find(function (receta) {
@@ -72,8 +74,9 @@ $(document).ready(function() {
             if (existingRecipe) {
                 // Si ya existe, mostrar alerta y no agregar la receta
                 alert("Este alimento ya se ingresó a la lista, debes seleccionar otro.");
-                // No recargar la página, solo cerrar el modal
-                $(this).closest('.modal').modal('hide');
+              
+                // recargar pagina
+            window.location.reload();
             } else {
                 // Crear objeto de receta
                 var receta = {
@@ -81,11 +84,7 @@ $(document).ready(function() {
                     mealId: mealId,
                     meal: meal,
                     categoria: categoria,
-                    area: area,
-                    tags: tags,
-                    youtube: youtube,
-                    source: source,
-                    instrucciones: instrucciones
+                    
                 };
 
                 // Verificar si la categoría ya tiene un arreglo en localStorage
@@ -98,16 +97,72 @@ $(document).ready(function() {
 
                 // Almacenar la lista en localStorage
                 localStorage.setItem('recetasSeleccionadas', JSON.stringify(recetasSeleccionadasPorCategoria));
+               
 
-                // Cerrar el modal
-                window.location.reload();
+                // recargar pagina
+                 window.location.reload();
             }
         }
     });
 
     // Cargar las recetas almacenadas en localStorage al cargar la página
-    var recetasLocalStorage = localStorage.getItem('recetasSeleccionadas');
-    if (recetasLocalStorage) {
-        recetasSeleccionadasPorCategoria = JSON.parse(recetasLocalStorage);
+var recetasLocalStorage = localStorage.getItem('recetasSeleccionadas');
+if (recetasLocalStorage) {
+   recetasSeleccionadasPorCategoria = JSON.parse(recetasLocalStorage);
+  // console.log(recetasLocalStorage);
+}
+ //metodo para guardar menu 
+$('.btn-guardar-menu').on('click', function() {
+    // Validate one more time before proceeding
+    validateMenuLimits();
+ 
+   // Retrieve data from LocalStorage
+var recetas = localStorage.getItem('recetasSeleccionadas');
+let data = new FormData();
+data.append('recetas', recetas);
+// Send data to the server using fetch
+fetch('../../controllers/guardaMenu.php', {
+    method: 'POST',
+    body:  data
+})
+.then(response => {
+    if (!response.ok) {
+        throw new Error('Network response was not ok');
     }
+    return response.text();
+})
+.then(responseText => {
+    console.log('Data sent to server successfully:', responseText);
+})
+.catch(error => {
+    console.error('Error sending data to server:', error);
 });
+
+  
+   
+  
+    
+    
+});
+
+});
+ 
+function validateMenuLimits() {
+    var allLimitsReached = listaRecetas.every(function(categoriaObj) {
+        var categoriaKey = Object.keys(categoriaObj)[0];
+        var categoriaValue = categoriaObj[categoriaKey];
+
+        return (
+            recetasSeleccionadasPorCategoria[categoriaKey] &&
+            recetasSeleccionadasPorCategoria[categoriaKey].length >= categoriaValue
+        );
+    });
+
+    if (allLimitsReached) {
+        alert("All limits reached")
+        $(".btn-guardar-menu").prop("disabled", false);
+    } else {
+        alert("sigue agregando")
+        $(".btn-guardar-menu").prop("disabled", true);
+    }
+}

@@ -5,6 +5,7 @@
 }
 
 unset($_SESSION['user']);
+unset($_SESSION['token']);
 session_destroy();
 header("location: ../");
 ?>

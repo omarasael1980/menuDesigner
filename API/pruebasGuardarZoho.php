@@ -2,7 +2,7 @@
 include 'helpers/postZoho.php';
 include 'helpers/curlZoho.php';
 //recuperar las recetas almacenadas en zoho
-$meals =  getDataZoho("recetas_Report", "1000.182825053ce6427fcfc91d807cf8462d.3ad8ad769e347bdea229ce19035ec833");
+$meals =  getDataZoho("recetas_Report", $_SESSION['token']);
 
 $dataReceta[] =array(
      

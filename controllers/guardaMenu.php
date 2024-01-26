@@ -8,9 +8,7 @@ if (isset($_POST['recetas'])) {
 
     // SE DECODIFICAN
     $data = json_decode($recetas, true);
-    echo '<pre>';
-    print_r($data);
-    echo '</pre>';
+    
     // Si data es null se manda mensaje a la pantalla
     if ($data === null) {
         // JSON decoding failed

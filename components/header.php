@@ -1,3 +1,8 @@
+<?php
+include '../helpers/checkSessionTime.php';
+// Llama a la función para verificar el tiempo de sesión
+checkSessionTime();
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>

@@ -19,7 +19,7 @@
             unset($receta["dateModified"]);
         }
         
-        $res= sendDataZoho("recetas", "1000.98e653edc3591384d1e3ba33c7752c8c.c3b447637ad59551365354e85767eb07", $receta);
+        $res= sendDataZoho("recetas", $_SESSION['token'], $receta);
       return $res;
          
 

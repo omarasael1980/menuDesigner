@@ -1,7 +1,7 @@
 <?php
  
 // Ahora puedes acceder a las variables de entorno
-$token = "1000.9b78f8e345dca2a23b99ed6f0725d263.a9e7e4ab7708adbab733d4505e32a4ce";
+$token = $_SESSION['token'];
 $environment = "development";
 $url_base = "https://creator.zoho.com/api/v2/omarasael80/menucreator/report/All_Categories";
 

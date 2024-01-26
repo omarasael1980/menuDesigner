@@ -23,6 +23,8 @@ if (isset($_GET['category'])) {
         <aside class="col-3 bg-light   ">
             <h1>Diseña el menú</h1>
              <hr>
+            <Label for="f_inicial">Fecha Inicial:</Label>
+            <input type="date" name="f_inicial" id="f_inicial" onchange="limitSundays()">
             <div class = "seleccionados"></div>
             <div class="row  text-center">
             <button type="button" class=" col-6 btn btn-success btn-guardar-menu mx-auto" id="btn-guardar-menu"  >Guardar Menú</button>
@@ -33,6 +35,7 @@ if (isset($_GET['category'])) {
             <div class="row justify-content-center">
                 <form class="col-lg-10 col-md-10 col-sm-12" action="menuDesign.php" method="get">
                     <div class="row">
+
                         <label class="col-lg-2" for="categorie">Selecciona una categoría</label>
                         <select id="categorie" name="category" class="col-lg-6 m-2">
                             <?php foreach ($categories["categories"] as $categorie) : ?>
@@ -119,7 +122,22 @@ if (isset($_GET['category'])) {
 
     <?php endforeach ?>
 <?php endif ?>
- 
+<script>
+function limitarADomingos() {
+    // Obtener el valor seleccionado en el campo de fecha
+    var fechaSeleccionada = document.getElementById("fecha").value;
+
+    // Convertir la fecha seleccionada a un objeto Date
+    var fecha = new Date(fechaSeleccionada);
+
+    // Verificar si la fecha seleccionada es un domingo (día de la semana 0)
+    if (fecha.getDay() !== 0) {
+        alert("Por favor, selecciona un domingo.");
+        // Restablecer el valor del campo de fecha
+        document.getElementById("fecha").value = '';
+    }
+}
+</script>
 <script src="../../js/modalSupport.js"></script>
 <script src="../../js/listaRecetas.js"></script>
 <!-- jQuery (debe estar antes de Bootstrap JavaScript) -->

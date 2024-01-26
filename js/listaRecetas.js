@@ -26,7 +26,8 @@ function generarHTMLRecetasSeleccionadas(recetasPorCategoria, listaRecetas) {
 
                 // Iterar a través de las recetas de la categoría
                 recetasCategoria.forEach(function(receta) {
-                    html += '<li>' + receta.meal + '</li>';
+                    // Agregar un botón de eliminación con el id o nombre de la receta
+                    html += '<li>' + receta.meal + ' <button onclick="eliminarReceta(\'' + receta.meal + '\')">Eliminar</button></li>';
                 });
 
                 html += '</ul>';
@@ -41,6 +42,34 @@ function generarHTMLRecetasSeleccionadas(recetasPorCategoria, listaRecetas) {
         return '<p>No hay recetas seleccionadas.</p>';
     }
 }
+
+// Función para eliminar una receta del localstorage
+function eliminarReceta(nombreReceta) {
+    // Obtener las recetas del localstorage
+    var recetasGuardadas = JSON.parse(localStorage.getItem('recetasPorCategoria')) || {};
+
+    // Iterar a través de las categorías en las recetas guardadas
+    for (var categoria in recetasGuardadas) {
+        if (recetasGuardadas.hasOwnProperty(categoria)) {
+            // Filtrar las recetas para eliminar la receta con el nombre especificado
+            recetasGuardadas[categoria] = recetasGuardadas[categoria].filter(function(receta) {
+                return receta.meal !== nombreReceta;
+            });
+        }
+    }
+
+    // Guardar las recetas actualizadas en el localstorage
+    localStorage.setItem('recetasPorCategoria', JSON.stringify(recetasGuardadas));
+
+    // Volver a generar el HTML con las recetas actualizadas
+    var listaRecetas = JSON.parse(localStorage.getItem('listaRecetas')) || [];
+    var recetasPorCategoria = JSON.parse(localStorage.getItem('recetasPorCategoria')) || {};
+    var nuevoHTML = generarHTMLRecetasSeleccionadas(recetasPorCategoria, listaRecetas);
+
+    // Actualizar el elemento HTML que contiene las recetas
+    document.getElementById('recetas-seleccionadas').innerHTML = nuevoHTML;
+}
+
 
 // Obtener el div con la clase "seleccionados"
 var divSeleccionados = document.querySelector('.seleccionados');

@@ -1,0 +1,30 @@
+
+.nav-button-logout{
+    background: black;
+    color: white;
+    padding: 10px 10px;
+    font-size: 20px;
+    vertical-align: middle;
+    border-width: 2px;
+    border-style: outset;
+    border-color: buttonborder;
+    border-image: initial;
+   
+}
+.nav-button-logout:hover{
+    background: rgb(255,61,61);
+    color: white;
+    padding: 10px 10px;
+    font-size: 20px;
+    vertical-align: middle;
+    border-style: groove;
+    
+}
+.nav-button:hover{
+    background:rgb(4, 166, 220);
+    border-style: groove;
+}
+.delete-icon{
+    width: 30px;
+    height: 30px;
+}

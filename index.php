@@ -3,9 +3,8 @@
     session_start();
 }
 ?>
-<pre>
-    <?php print_r($_SESSION);?>
-</pre>
+ 
+ 
 <!DOCTYPE html>
 <html lang="es">
 

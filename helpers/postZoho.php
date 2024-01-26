@@ -10,7 +10,12 @@ $url_base = "https://creator.zoho.com/api/v2/omarasael80/menucreator/form/".$for
  
 $ch = curl_init($url_base);
 $datos_json = json_encode(array("data" => $datos));
-echo $datos_json;
+if($form =="CapturaMenu"){
+    echo 'Se envia a ';
+    echo $form;
+    echo $datos_json;
+}
+
 // Configurar las opciones de cURL
 curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
     curl_setopt($ch, CURLOPT_POST, true);

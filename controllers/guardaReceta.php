@@ -1,6 +1,7 @@
 <?php
     include_once '../helpers/cURL.php';
     include_once '../helpers/postZoho.php';
+    session_start();
     /* Esta funcion recibe el idMeal y la categoria, y esta funcion consulta la API
      recibe los datos  y los manda a guardar a Zoho*/
     function sendRecipe($idmeal ) {

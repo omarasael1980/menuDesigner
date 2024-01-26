@@ -1,5 +1,6 @@
-
+ 
 <?php
+  session_start();
 include "../../components/header.php";
 include "../../API/getRecipe.php";
 include '../../helpers/cURL.php';
@@ -27,8 +28,8 @@ if (isset($_GET['category'])) {
             <h1>Diseña el menú</h1>
              <hr>
             <Label for="f_inicial">Fecha Inicial:</Label>
-            <input type="date" name="f_inicial" id="f_inicial" onchange="limitSundays()">
-            <div class = "seleccionados"></div>
+            <input type="date" name="f_inicial" id="f_inicial" onchange="limitMonday()">
+            <div class = "seleccionados" id="seleccionados"></div>
             <div class="row  text-center">
             <button type="button" class=" col-6 btn btn-success btn-guardar-menu mx-auto" id="btn-guardar-menu"  >Guardar Menú</button>
             </div>
@@ -125,22 +126,9 @@ if (isset($_GET['category'])) {
 
     <?php endforeach ?>
 <?php endif ?>
-<script>
-function limitarADomingos() {
-    // Obtener el valor seleccionado en el campo de fecha
-    var fechaSeleccionada = document.getElementById("fecha").value;
-
-    // Convertir la fecha seleccionada a un objeto Date
-    var fecha = new Date(fechaSeleccionada);
-
-    // Verificar si la fecha seleccionada es un domingo (día de la semana 0)
-    if (fecha.getDay() !== 0) {
-        alert("Por favor, selecciona un domingo.");
-        // Restablecer el valor del campo de fecha
-        document.getElementById("fecha").value = '';
-    }
-}
-</script>
+ 
+ 
+<script src="../../js/mondayLimit.js"></script>
 <script src="../../js/modalSupport.js"></script>
 <script src="../../js/listaRecetas.js"></script>
 <!-- jQuery (debe estar antes de Bootstrap JavaScript) -->

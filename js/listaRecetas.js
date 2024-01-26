@@ -27,7 +27,7 @@ function generarHTMLRecetasSeleccionadas(recetasPorCategoria, listaRecetas) {
                 // Iterar a través de las recetas de la categoría
                 recetasCategoria.forEach(function(receta) {
                     // Agregar un botón de eliminación con el id o nombre de la receta
-                    html += '<li>' + receta.meal + ' <button onclick="eliminarReceta(\'' + receta.meal + '\')">Eliminar</button></li>';
+                    html += '<li id='+receta.meal+'>' + receta.meal + '  <img src="../../img/icons/delete.png" alt="Eliminar" style=" width: 20px;" onclick="eliminarReceta(\'' + receta.meal + '\')"></li>';
                 });
 
                 html += '</ul>';
@@ -45,29 +45,43 @@ function generarHTMLRecetasSeleccionadas(recetasPorCategoria, listaRecetas) {
 
 // Función para eliminar una receta del localstorage
 function eliminarReceta(nombreReceta) {
-    // Obtener las recetas del localstorage
-    var recetasGuardadas = JSON.parse(localStorage.getItem('recetasPorCategoria')) || {};
+     
+  // Obtener las recetas del LocalStorage
+  var recetasGuardadas = JSON.parse(localStorage.getItem('recetasSeleccionadas')) || {};
+   
+  // Iterar a través de las categorías en las recetas guardadas
+  for (var categoria in recetasGuardadas) {
+      if (recetasGuardadas.hasOwnProperty(categoria)) {
+          // Filtrar las recetas para eliminar la receta con el nombre especificado
+          recetasGuardadas[categoria] = recetasGuardadas[categoria].filter(function(receta) {
+            
+            return receta.meal !== nombreReceta;
+          });
 
-    // Iterar a través de las categorías en las recetas guardadas
-    for (var categoria in recetasGuardadas) {
-        if (recetasGuardadas.hasOwnProperty(categoria)) {
-            // Filtrar las recetas para eliminar la receta con el nombre especificado
-            recetasGuardadas[categoria] = recetasGuardadas[categoria].filter(function(receta) {
-                return receta.meal !== nombreReceta;
-            });
-        }
-    }
+          // Eliminar la categoría si no hay más recetas en ella
+          if (recetasGuardadas[categoria].length === 0) {
+              delete recetasGuardadas[categoria];
+            
+          }
+      }
+  }
 
-    // Guardar las recetas actualizadas en el localstorage
-    localStorage.setItem('recetasPorCategoria', JSON.stringify(recetasGuardadas));
+  // Guardar las recetas actualizadas en el LocalStorage
+  localStorage.setItem('recetasSeleccionadas', JSON.stringify(recetasGuardadas));
+ 
+  // Volver a generar el HTML con las recetas actualizadas
+  var listaRecetas = JSON.parse(localStorage.getItem('listaRecetas')) || [];
+  var recetasPorCategoria = JSON.parse(localStorage.getItem('recetasSeleccionadas')) || {};
+  var nuevoHTML = generarHTMLRecetasSeleccionadas(recetasPorCategoria, listaRecetas);
 
-    // Volver a generar el HTML con las recetas actualizadas
-    var listaRecetas = JSON.parse(localStorage.getItem('listaRecetas')) || [];
-    var recetasPorCategoria = JSON.parse(localStorage.getItem('recetasPorCategoria')) || {};
-    var nuevoHTML = generarHTMLRecetasSeleccionadas(recetasPorCategoria, listaRecetas);
-
-    // Actualizar el elemento HTML que contiene las recetas
-    document.getElementById('recetas-seleccionadas').innerHTML = nuevoHTML;
+  // Actualizar el elemento HTML que contiene las recetas
+  var elementoRecetas = document.getElementById('seleccionados');
+  if (elementoRecetas) {
+      elementoRecetas.innerHTML = nuevoHTML;
+  } else {
+      console.error("El elemento 'seleccionados' no fue encontrado.");
+  }
+  window.location.reload();
 }
 
 

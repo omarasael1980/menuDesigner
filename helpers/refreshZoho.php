@@ -33,6 +33,4 @@ $ch = curl_init($url);
  
 ?>
  
-<pre>
-    <?php print_r(refreshZohoSession());?>
-</pre>
+ 

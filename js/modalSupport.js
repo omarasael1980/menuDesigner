@@ -115,11 +115,23 @@ if (recetasLocalStorage) {
 $('.btn-guardar-menu').on('click', function() {
     // Validate one more time before proceeding
     validateMenuLimits();
- 
+    var inputFecha = document.getElementById('f_inicial');
+    var fechaSeleccionada = new Date(inputFecha.value);
+    //convertir a fecha ISO
+    // Verificar si la fecha es válida
+    if (isNaN(fechaSeleccionada.getTime())) {
+        console.error('Fecha no válida:', fechaSeleccionada);
+        return null;
+    }
+
+    // Obtener la fecha en formato ISO 8601
+    var fechaISO = fechaSeleccionada.toISOString();
+
    // Retrieve data from LocalStorage
 var recetas = localStorage.getItem('recetasSeleccionadas');
 let data = new FormData();
 data.append('recetas', recetas);
+data.append('fecha',fechaISO);
 // Send data to the server using fetch
 fetch('../../controllers/guardaMenu.php', {
     method: 'POST',
@@ -159,8 +171,9 @@ function validateMenuLimits() {
     });
 
     if (allLimitsReached) {
-        alert("All limits reached")
+        alert("Las recetas están completas y guardandose.");
         $(".btn-guardar-menu").prop("disabled", false);
+        return
     } else {
         alert("sigue agregando")
         $(".btn-guardar-menu").prop("disabled", true);

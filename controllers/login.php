@@ -15,10 +15,10 @@ echo $usuario;
 echo $password;
 $rtok = refreshZohoSession();
 $rtok = $rtok["access_token"];
-echo $rtok;
+ 
 // Buscar usuario por usuario desde Zoho
 $users = getDataZoho("usuarios_Report", $rtok);
-print($rtok);
+ 
   
 foreach ($users['data'] as $user) {
     if ($user['user'] == $usuario) {

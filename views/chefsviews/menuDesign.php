@@ -1,9 +1,12 @@
+
 <?php
 include "../../components/header.php";
 include "../../API/getRecipe.php";
 include '../../helpers/cURL.php';
 include "../../components/meals.php";
-
+if(!isset($_SESSION['user']) && ($_SESSION['user']['rol'] != 'Chef')){
+    header("Location:../../");
+}
 // Se llenan las categorias
 $get_data = callAPI('GET', 'https://www.themealdb.com/api/json/v1/1/categories.php', false);
 $categories = json_decode($get_data, true);
